@@ -22,6 +22,10 @@ class LaravelLocalization extends McamaraLaravelLocalization
             // it tries to get it from the first segment of the url
             $locale = $this->request->segment(1);
 
+            if ($this->request->segment(2) && !empty($this->supportedLocales[$locale . '/' . $this->request->segment(2)])) {
+                $locale .= '/' . $this->request->segment(2);
+            }
+
             // If the locale is determined by env, use that
             // Note that this is how per-locale route caching is performed.
             if ( ! $locale) {
