@@ -62,6 +62,8 @@ trait LoadsTranslatedCachedRoutes
             return $path;
         }
 
+        $locale = str_replace('/', '__', $locale);
+
         return substr($path, 0, -4) . '_' . $locale . '.php';
     }
 
