@@ -50,7 +50,7 @@ class RouteTranslationsCacheCommand extends Command
         $routeEnv = $this->argument('routeEnv');
         $this->setRouteEnv($routeEnv);
 
-        $this->call('route:trans:clear');
+        $this->call('route:trans:clear', ['routeEnv' => $routeEnv]);
 
         $this->cacheRoutesPerLocale();
 
