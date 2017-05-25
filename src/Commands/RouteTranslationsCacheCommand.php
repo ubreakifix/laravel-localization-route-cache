@@ -7,6 +7,7 @@ use Illuminate\Console\Command;
 use Illuminate\Contracts\Console\Kernel;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Routing\RouteCollection;
+use Symfony\Component\Console\Input\InputArgument;
 
 class RouteTranslationsCacheCommand extends Command
 {
@@ -46,11 +47,14 @@ class RouteTranslationsCacheCommand extends Command
      */
     public function fire()
     {
+        $routeEnv = $this->argument('routeEnv');
+        $this->setRouteEnv($routeEnv);
+
         $this->call('route:trans:clear');
 
         $this->cacheRoutesPerLocale();
 
-        $this->info('Routes cached successfully for all locales!');
+        $this->info('Routes cached successfully for all locales in the "' . $routeEnv . '" route environment!');
     }
 
     /**
@@ -124,6 +128,13 @@ class RouteTranslationsCacheCommand extends Command
         );
 
         return str_replace('{{routes}}', base64_encode(serialize($routes)), $stub);
+    }
+
+    protected function getArguments()
+    {
+        return [
+            ['routeEnv', InputArgument::OPTIONAL, 'Route environment key to use for caching', 'default'],
+        ];
     }
 
 }

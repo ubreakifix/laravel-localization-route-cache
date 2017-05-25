@@ -4,6 +4,11 @@ namespace Czim\LaravelLocalizationRouteCache\Traits;
 trait TranslatedRouteCommandContext
 {
 
+    protected function setRouteEnv($routeEnv)
+    {
+        putenv("ROUTE_ENV={$routeEnv}");
+    }
+
     /**
      * Returns whether a given locale is supported.
      *

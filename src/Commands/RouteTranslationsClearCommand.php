@@ -4,6 +4,7 @@ namespace Czim\LaravelLocalizationRouteCache\Commands;
 use Czim\LaravelLocalizationRouteCache\Traits\TranslatedRouteCommandContext;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
+use Symfony\Component\Console\Input\InputArgument;
 
 class RouteTranslationsClearCommand extends Command
 {
@@ -49,6 +50,9 @@ class RouteTranslationsClearCommand extends Command
      */
     public function fire()
     {
+        $routeEnv = $this->argument('routeEnv');
+        $this->setRouteEnv($routeEnv);
+
         foreach ($this->getSupportedLocales() as $locale) {
 
             $path = $this->makeLocaleRoutesPath($locale);
@@ -64,7 +68,14 @@ class RouteTranslationsClearCommand extends Command
             $this->files->delete($path);
         }
 
-        $this->info('Route caches for locales cleared!');
+        $this->info('Route caches for locales in the "' . $routeEnv . '" route environment cleared!');
+    }
+
+    protected function getArguments()
+    {
+        return [
+            ['routeEnv', InputArgument::OPTIONAL, 'Route environment key to use for caching', 'default'],
+        ];
     }
 
 }

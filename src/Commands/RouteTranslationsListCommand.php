@@ -27,6 +27,8 @@ class RouteTranslationsListCommand extends RouteListCommand
      */
     public function fire()
     {
+        $this->setRouteEnv($this->argument('routeEnv'));
+
         if (count($this->routes) == 0) {
             $this->error("Your application doesn't have any routes.");
             return;
@@ -74,6 +76,7 @@ class RouteTranslationsListCommand extends RouteListCommand
     {
         return [
             ['locale', InputArgument::REQUIRED, 'The locale to list routes for.'],
+            ['routeEnv', InputArgument::OPTIONAL, 'Route environment key to use for caching', 'default'],
         ];
     }
 
