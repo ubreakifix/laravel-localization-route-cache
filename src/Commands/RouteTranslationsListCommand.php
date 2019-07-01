@@ -25,7 +25,7 @@ class RouteTranslationsListCommand extends RouteListCommand
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $this->setRouteEnv($this->argument('routeEnv'));
 

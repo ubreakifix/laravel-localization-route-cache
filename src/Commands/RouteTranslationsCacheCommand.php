@@ -45,7 +45,7 @@ class RouteTranslationsCacheCommand extends Command
     /**
      * Execute the console command.
      */
-    public function fire()
+    public function handle()
     {
         $routeEnv = $this->argument('routeEnv');
         $this->setRouteEnv($routeEnv);

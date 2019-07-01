@@ -48,7 +48,7 @@ class RouteTranslationsClearCommand extends Command
      *
      * @return void
      */
-    public function fire()
+    public function handle()
     {
         $routeEnv = $this->argument('routeEnv');
         $this->setRouteEnv($routeEnv);
